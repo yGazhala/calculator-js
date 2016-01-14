@@ -1,0 +1,90 @@
+/* reset browser styles */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed,
+figure, figcaption, footer, header, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1.2;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+ol {
+    padding-left: 1.4em;
+    list-style: decimal;
+}
+ul {
+    padding-left: 1.4em;
+    list-style: square;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+/* end reset browser styles */
+
+* {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; /*include padding and margin within the container*/
+}
+
+#calculatorContainer {
+    width: 180px;
+    margin: 20px 0 0 20px;
+    padding: 10px;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    font-size: 16px;
+    overflow: hidden;
+
+    background: #eeeeee; /* Old browsers */
+    background: -moz-linear-gradient(top,  #eeeeee 0%, #cccccc 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #eeeeee 0%,#cccccc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+
+    -webkit-box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.25);
+    box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.25);
+}
+
+.calculator__screen {
+    width: 8em;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    border-radius: 3px;
+    text-align: right;
+    background-color: ghostwhite;
+}
+
+.calculator__screen:focus {
+    outline: none; /* remove  border highlight */
+}
+
+#calculatorContainer button {
+    cursor: pointer;
+}
+
+#calculatorContainer table button {
+    width: 3em;
+    height: 2.5em;
+}
+
+#calculatorContainer button[data-calc-equally] {
+    width: 12em;
+    height: 2.5em;
+}
