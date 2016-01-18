@@ -84,7 +84,7 @@ q:before, q:after {
     height: 2.5em;
 }
 
-#calculatorContainer button[data-calc-equally] {
+#calculatorContainer button[data-command='equally'] {
     width: 12em;
     height: 2.5em;
 }

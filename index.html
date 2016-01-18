@@ -12,41 +12,41 @@
     <input type="text" class="calculator__screen" autofocus>
     <table>
         <tr>
-            <td><button data-calc-command="clean">C</button></td>
-            <td><button data-input-backspace="backspace">&#8592</button></td>
-            <td><button data-calc-command="undo">&#8656</button></td>
-            <td><button data-calc-command="redo">&#8658</button></td>
+            <td><button data-command="clean">C</button></td>
+            <td><button data-key="backspace">&#8592</button></td>
+            <td><button data-command="undo">&#8656</button></td>
+            <td><button data-command="redo">&#8658</button></td>
         </tr>
         <tr>
-            <td><button data-input-character="7">7</button></td>
-            <td><button data-input-character="8">8</button></td>
-            <td><button data-input-character="9">9</button></td>
-            <td><button data-calc-operator="div">&divide</button></td>
+            <td><button data-character="7">7</button></td>
+            <td><button data-character="8">8</button></td>
+            <td><button data-character="9">9</button></td>
+            <td><button data-operator="div">&divide</button></td>
         </tr>
         <tr>
-            <td><button data-input-character="4">4</button></td>
-            <td><button data-input-character="5">5</button></td>
-            <td><button data-input-character="6">6</button></td>
-            <td><button data-calc-operator="mul">&times</button></td>
+            <td><button data-character="4">4</button></td>
+            <td><button data-character="5">5</button></td>
+            <td><button data-character="6">6</button></td>
+            <td><button data-operator="mul">&times</button></td>
         </tr>
         <tr>
-            <td><button data-input-character="1">1</button></td>
-            <td><button data-input-character="2">2</button></td>
-            <td><button data-input-character="3">3</button></td>
-            <td><button data-calc-operator="sub">&#8722</button></td>
+            <td><button data-character="1">1</button></td>
+            <td><button data-character="2">2</button></td>
+            <td><button data-character="3">3</button></td>
+            <td><button data-operator="sub">&#8722</button></td>
         </tr>
         <tr>
-            <td><button data-input-character="0">0</button></td>
-            <td><button data-input-dot="dot">.</button></td>
-            <td><button data-input-minus-plus="minusPlus">&plusmn</button></td>
-            <td><button data-calc-operator="add">+</button></td>
+            <td><button data-character="0">0</button></td>
+            <td><button data-key="dot">.</button></td>
+            <td><button data-key="minusPlus">&plusmn</button></td>
+            <td><button data-operator="add">+</button></td>
         </tr>
     </table>
-    <button data-calc-equally="equally">=</button>
+    <button data-command="equally">=</button>
 </div>
 <script>
 'use strict';
-initializeApp();
+initApp();
 </script>
 </body>
 </html>

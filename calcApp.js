@@ -1,21 +1,24 @@
 'use strict';
 // This application has been designed within pattern "Command"
 
-function initializeApp() {
-    let calculator = new Calculator(),
-        calculatorUI = new CalculatorUI(calculator);
+function initApp() {
+    // realization interface
+    let calculator = new Calculator();
 
-    // listen user's mouse and keyboard events
-    calculatorUI._calcContainer.addEventListener('click', () => calculatorUI.processUserAction(event));
-    calculatorUI._screen.addEventListener('keypress', () => calculatorUI.processUserAction(event));
+    // user interface
+    let calculatorUI = new CalculatorUI(calculator, document.getElementById('calculatorContainer'));
 }
 
 class CalculatorUI {
-    constructor(calculator) {
+    constructor(calculator, calcContainer) {
         this._calculator = calculator;
-        this._calcContainer = document.getElementById('calculatorContainer');
+        this._calcContainer = calcContainer;
         this._screen = this._calcContainer.querySelector('.calculator__screen');
         this._screen.value = 0; // default value
+
+        // listen user's mouse and keyboard events
+        this._calcContainer.addEventListener('click', () => this.processUserAction(event));
+        this._screen.addEventListener('keypress', () => this.processUserAction(event));
 
         // helper flags for calculator buttons
         this._firstOperandInputted = false;
@@ -210,6 +213,8 @@ class CalculatorUI {
 
         return null; // special symbol
     }
+
+
 }
 
 
