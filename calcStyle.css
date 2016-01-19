@@ -67,7 +67,6 @@ q:before, q:after {
     margin-bottom: 10px;
     font-size: 1.2em;
     border-radius: 3px;
-    text-align: right;
     background-color: ghostwhite;
 }
 
@@ -84,7 +83,7 @@ q:before, q:after {
     height: 2.5em;
 }
 
-#calculatorContainer button[data-command='equally'] {
+#calculatorContainer button[data-key='_performEqually'] {
     width: 12em;
     height: 2.5em;
 }

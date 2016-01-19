@@ -9,13 +9,13 @@
 </head>
 <body>
 <div id="calculatorContainer">
-    <input type="text" class="calculator__screen" autofocus>
+    <input type="text" class="calculator__screen">
     <table>
         <tr>
-            <td><button data-command="clean">C</button></td>
-            <td><button data-key="backspace">&#8592</button></td>
-            <td><button data-command="undo">&#8656</button></td>
-            <td><button data-command="redo">&#8658</button></td>
+            <td><button data-key="_performClean">C</button></td>
+            <td><button data-key="_performBackspace">&#8592</button></td>
+            <td><button data-key="_performUndo">&#8656</button></td>
+            <td><button data-key="_performRedo">&#8658</button></td>
         </tr>
         <tr>
             <td><button data-character="7">7</button></td>
@@ -37,16 +37,17 @@
         </tr>
         <tr>
             <td><button data-character="0">0</button></td>
-            <td><button data-key="dot">.</button></td>
-            <td><button data-key="minusPlus">&plusmn</button></td>
+            <td><button data-key="_inputDot">.</button></td>
+            <td><button data-key="_performMinusPlus">&plusmn</button></td>
             <td><button data-operator="add">+</button></td>
         </tr>
     </table>
-    <button data-command="equally">=</button>
+    <button data-key="_performEqually">=</button>
 </div>
 <script>
 'use strict';
-initApp();
+let calculator = new calcApp(document.getElementById('calculatorContainer'));
+
 </script>
 </body>
 </html>

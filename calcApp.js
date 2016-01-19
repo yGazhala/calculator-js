@@ -1,12 +1,14 @@
 'use strict';
 // This application has been designed within pattern "Command"
 
-function initApp() {
-    // realization interface
-    let calculator = new Calculator();
+class calcApp {
+    constructor(container) {
+        // this object contains interface methods of realization
+        let calculator = new Calculator();
 
-    // user interface
-    let calculatorUI = new CalculatorUI(calculator, document.getElementById('calculatorContainer'));
+        // user interface
+        let calculatorUI = new CalculatorUI(calculator, container);
+    }
 }
 
 class CalculatorUI {
@@ -14,113 +16,129 @@ class CalculatorUI {
         this._calculator = calculator;
         this._calcContainer = calcContainer;
         this._screen = this._calcContainer.querySelector('.calculator__screen');
+        this._screen.focus();
         this._screen.value = 0; // default value
-
-        // listen user's mouse and keyboard events
-        this._calcContainer.addEventListener('click', () => this.processUserAction(event));
-        this._screen.addEventListener('keypress', () => this.processUserAction(event));
 
         // helper flags for calculator buttons
         this._firstOperandInputted = false;
         this._equallyInputted = false;
         this._currentOperator = null; // the current operator, which is going to be executed
         this._inputUpdated = false; // it changes, when user inputs new character
+
+        // listen user's mouse and keyboard events
+        this._calcContainer.addEventListener('click', () => this._processMouseEvent(event));
+        this._screen.addEventListener('keypress', () => this._processKeyboardEvent(event));
     }
 
-    processUserAction(event) {
+    _processMouseEvent(event) {
+        let char = event.target.getAttribute('data-character');
+        let operator = event.target.getAttribute('data-operator');
+        let key = event.target.getAttribute('data-key');
+
+        if (char) {
+            this._inputChar(char);
+        }
+
+        if (operator) {
+            this._performOperator(operator);
+        }
+
+        if (key) {
+            this[key]();
+        }
+    }
+
+    _processKeyboardEvent(event) {
+        let operators = {
+            '+': 'add',
+            '-': 'sub',
+            '*': 'mul',
+            '/': 'div'
+        };
+
+        let strFromChar; // it keeps current symbol from keypress event
+
+        // getting character from keypress event
         if (event.type === 'keypress') {
             event.preventDefault();
-        }
-
-        let target = event.target,
             strFromChar = this._getChar(event);
-
-        // Determine numbers (0-9) from keyboard event
-        if (strFromChar >= 0 && strFromChar <= 9) {
-            var numberFromChar = strFromChar;
         }
 
-        // determine calculator operators from keyboard event
-        let operatorFromChar = false;
-        if (strFromChar === '+') { operatorFromChar = 'add'; }
-        if (strFromChar === '-') { operatorFromChar = 'sub'; }
-        if (strFromChar === '*') { operatorFromChar = 'mul'; }
-        if (strFromChar === '/') { operatorFromChar = 'div'; }
+        // Determine digit, dot and perform input
+        if (strFromChar >= '0' && strFromChar <= '9') {
+            this._inputChar(strFromChar);
+        }
 
-        // determine equally command from keyboard event
-        if (event.which === 13) { var equallyFromKeyboard = true; }
+        if (strFromChar === '.') {
+            this._inputDot();
+        }
 
-        // determine user input from mouse event || keyboard event
-        let inputBackspace = target.getAttribute('data-input-backspace'), // when input focused, it works from keyboard
-            inputMinusPlus = target.getAttribute('data-input-minus-plus'), // no need to support from keyboard
-            inputDot = target.getAttribute('data-input-dot') || strFromChar === '.',
-            inputChar = target.getAttribute('data-input-character') || numberFromChar,
+        // determine and perform the operator
+        if (operators[strFromChar]) {
+            this._performOperator(operators[strFromChar]);
+        }
 
-            calcOperator = target.getAttribute('data-calc-operator') || operatorFromChar,
-            calcCommand = target.getAttribute('data-calc-command'), // no need to support from keyboard
-            calcEqually = target.getAttribute('data-calc-equally') || equallyFromKeyboard;
-
-        // if user makes some action - call appropriate methods
-        if (inputBackspace) { this._performInputBackspace(); }
-        if (inputMinusPlus) { this._performInputMinusPlus(); }
-        if (inputDot) { this._performInputDot(); }
-        if (inputChar) { this._performInputChar(inputChar); }
-        if (calcOperator) { this._performCalcOperator(calcOperator); }
-        if (calcEqually) { this._performCalcEqually(); }
-        if (calcCommand === 'clean') { this._performCalcClean(); }
-
-        if (calcCommand === 'undo' || calcCommand === 'redo') {
-            // perform one step back || forward
-            this._screen.value = this._calculator[calcCommand](1);
-            this._screen.focus();
+        // determine and perform equally command
+        if (event.which === 13) {
+            this._performEqually();
         }
     }
 
-    _performInputBackspace() {
-        this._screen.value = String.prototype.slice.call(this._screen.value, 0, -1);
+    _performBackspace() {
         this._screen.focus();
+        this._screen.value = this._screen.value.slice(0, -1);
 
         if (this._screen.value === '') {
             this._screen.value = 0;
             this._inputUpdated = false;
-            this._screen.focus();
         }
     }
 
-    _performInputMinusPlus() {
+    _performMinusPlus() {
+        this._screen.focus();
+
         if (this._screen.value) {
             this._screen.value *= -1;
-            this._screen.focus();
         }
     }
 
-    _performInputDot() {
-        if ( /\./g.test(this._screen.value) === false ) {
+    _inputDot() {
+        this._screen.focus();
+
+        // if dot has inputted after equally command - update screen.value
+        if (this._equallyInputted === true) {
+                this._screen.value = '0.';
+                this._inputUpdated = true;
+        }
+
+        // if the screen.value has not a dot - add it
+        if (/\./g.test(this._screen.value) === false) {
             this._screen.value += '.';
             this._inputUpdated = true;
-            this._screen.focus();
+
         } else {
-            this._screen.focus();
-            return false;
+            return false; // do nothing
         }
     }
 
-    _performInputChar(inputChar) {
+    _inputChar(char) {
+        this._screen.focus();
+
         // Catching first character inputted
         if (this._inputUpdated === false) {
-            this._screen.value = inputChar; // replace default or previous value
+            this._screen.value = char; // replace default or previous value
             this._inputUpdated = true;
-            this._screen.focus();
+
         } else {
             // The next inputted character will be added after previous one.
-            this._screen.value += inputChar;
-            this._screen.focus();
+            this._screen.value += char;
         }
     }
 
-    _performCalcOperator(calcOperator) {
+    _performOperator(operator) {
+        this._screen.focus();
+
         if (!this._screen.value) {
-            this._screen.focus();
             return false; // in case of screen.value === '';
         }
 
@@ -129,7 +147,7 @@ class CalculatorUI {
         // and add it to calculator register
         if (this._currentOperator === null) {
 
-            // If equally button have been inputted already -
+            // If equally button has been inputted already -
             // set default settings for it
             if (this._equallyInputted) {
                 this._equallyInputted = false;
@@ -138,9 +156,8 @@ class CalculatorUI {
 
             this._calculator.add(parseFloat(this._screen.value));
             this._firstOperandInputted = true;
-            this._currentOperator = calcOperator;
+            this._currentOperator = operator;
             this._inputUpdated = false;
-            this._screen.focus();
         }
 
         // Catching next operand.
@@ -148,19 +165,19 @@ class CalculatorUI {
         // read second operand and call calculation method
         if (this._currentOperator && this._inputUpdated) {
             this._screen.value = this._calculator[this._currentOperator](parseFloat(this._screen.value));
-            this._currentOperator = calcOperator;
+            this._currentOperator = operator;
             this._inputUpdated = false;
-            this._screen.focus();
         }
 
         // change current operator
         if (this._currentOperator && this._inputUpdated === false) {
-            this._currentOperator = calcOperator;
-            this._screen.focus();
+            this._currentOperator = operator;
         }
     }
 
-    _performCalcEqually() {
+    _performEqually() {
+        this._screen.focus();
+
         // If equally inputted at the first time - catch the next operand,
         // and call the calculation method
 
@@ -170,26 +187,33 @@ class CalculatorUI {
             this._screen.value = this._calculator[this._currentOperator](parseFloat(this._screen.value));
             this._equallyInputted = true;
             this._setDefaultFlags();
-            this._screen.focus();
 
         // if equally inputted at next time - repeat last command inputted
         } else {
             if (this._firstOperandInputted === false) {
                 this._screen.value = this._calculator.repeatLastCommand();
                 this._inputUpdated = false;
-                this._screen.focus();
+
             } else {
-                this._screen.focus();
                 return false;  // in other cases - do nothing
             }
         }
-        this._screen.focus();
     }
 
-    _performCalcClean() {
+    _performClean() {
+        this._screen.focus();
         this._screen.value = this._calculator.clean();
         this._setDefaultFlags();
+    }
+
+    _performUndo() {
         this._screen.focus();
+        this._screen.value = this._calculator.undo(1);
+    }
+
+    _performRedo() {
+        this._screen.focus();
+        this._screen.value = this._calculator.redo(1);
     }
 
     // prepare for new commands
@@ -213,8 +237,6 @@ class CalculatorUI {
 
         return null; // special symbol
     }
-
-
 }
 
 
@@ -245,17 +267,20 @@ class Calculator {
 
     undo(levels) {
         this._controlUnit.undo(levels);
+
         return this._arithmeticUnit.result;
     }
 
     redo(levels) {
         this._controlUnit.redo(levels);
+
         return this._arithmeticUnit.result;
     }
 
     clean() {
         this._controlUnit._commands.length = 0;
         this._controlUnit._current = 0;
+
         return this._arithmeticUnit.result = 0;
     }
 
@@ -265,11 +290,13 @@ class Calculator {
         if (commands.length > 0) {
             this._run(commands[commands.length -1]);
         }
+
         return this._arithmeticUnit.result;
     }
 
     _run(command) {
         this._controlUnit.executeCommand(command);
+
         return this._arithmeticUnit.result;
     }
 }
