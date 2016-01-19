@@ -1,13 +1,14 @@
 'use strict';
 // This application has been designed within pattern "Command"
 
-class calcApp {
+class CalcApp {
     constructor(container) {
         // this object contains interface methods of realization
         let calculator = new Calculator();
 
-        // user interface
-        let calculatorUI = new CalculatorUI(calculator, container);
+        // User interface.
+        // Making this property as a public in case of testing aims
+        this.calculatorUI = new CalculatorUI(calculator, container);
     }
 }
 
@@ -16,7 +17,6 @@ class CalculatorUI {
         this._calculator = calculator;
         this._calcContainer = calcContainer;
         this._screen = this._calcContainer.querySelector('.calculator__screen');
-        this._screen.focus();
         this._screen.value = 0; // default value
 
         // helper flags for calculator buttons
@@ -25,9 +25,19 @@ class CalculatorUI {
         this._currentOperator = null; // the current operator, which is going to be executed
         this._inputUpdated = false; // it changes, when user inputs new character
 
-        // listen user's mouse and keyboard events
-        this._calcContainer.addEventListener('click', () => this._processMouseEvent(event));
-        this._screen.addEventListener('keypress', () => this._processKeyboardEvent(event));
+
+        // add event handlers for mobile devices
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+
+            this._calcContainer.addEventListener('mousedown', () => this._processMouseEvent(event));
+
+        // for desktop
+        } else {
+            this._screen.focus(); // default
+            this._calcContainer.addEventListener('click', () => this._processMouseEvent(event));
+            this._calcContainer.addEventListener('click', () => this._screen.focus());
+            this._screen.addEventListener('keypress', () => this._processKeyboardEvent(event));
+        }
     }
 
     _processMouseEvent(event) {
@@ -85,7 +95,6 @@ class CalculatorUI {
     }
 
     _performBackspace() {
-        this._screen.focus();
         this._screen.value = this._screen.value.slice(0, -1);
 
         if (this._screen.value === '') {
@@ -95,23 +104,19 @@ class CalculatorUI {
     }
 
     _performMinusPlus() {
-        this._screen.focus();
-
         if (this._screen.value) {
             this._screen.value *= -1;
         }
     }
 
     _inputDot() {
-        this._screen.focus();
-
         // if dot has inputted after equally command - update screen.value
         if (this._equallyInputted === true) {
                 this._screen.value = '0.';
                 this._inputUpdated = true;
         }
 
-        // if the screen.value has not a dot - add it
+        // if the screen.value has no dot - add it
         if (/\./g.test(this._screen.value) === false) {
             this._screen.value += '.';
             this._inputUpdated = true;
@@ -122,8 +127,6 @@ class CalculatorUI {
     }
 
     _inputChar(char) {
-        this._screen.focus();
-
         // Catching first character inputted
         if (this._inputUpdated === false) {
             this._screen.value = char; // replace default or previous value
@@ -136,8 +139,6 @@ class CalculatorUI {
     }
 
     _performOperator(operator) {
-        this._screen.focus();
-
         if (!this._screen.value) {
             return false; // in case of screen.value === '';
         }
@@ -176,7 +177,6 @@ class CalculatorUI {
     }
 
     _performEqually() {
-        this._screen.focus();
 
         // If equally inputted at the first time - catch the next operand,
         // and call the calculation method
@@ -201,18 +201,15 @@ class CalculatorUI {
     }
 
     _performClean() {
-        this._screen.focus();
         this._screen.value = this._calculator.clean();
         this._setDefaultFlags();
     }
 
     _performUndo() {
-        this._screen.focus();
         this._screen.value = this._calculator.undo(1);
     }
 
     _performRedo() {
-        this._screen.focus();
         this._screen.value = this._calculator.redo(1);
     }
 

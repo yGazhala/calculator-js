@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width"/>
     <link rel="stylesheet" href="./calcStyle.css">
     <script src="http://cdn.polyfill.io/v1/polyfill.js?features=es6"></script>
     <script src="./calcApp.js"></script>
-    <title></title>
+    <title>calculatorApp</title>
 </head>
 <body>
 <div id="calculatorContainer">
@@ -14,8 +15,8 @@
         <tr>
             <td><button data-key="_performClean">C</button></td>
             <td><button data-key="_performBackspace">&#8592</button></td>
-            <td><button data-key="_performUndo">&#8656</button></td>
-            <td><button data-key="_performRedo">&#8658</button></td>
+            <td><button data-key="_performUndo">&#171</button></td>
+            <td><button data-key="_performRedo">&#187</button></td>
         </tr>
         <tr>
             <td><button data-character="7">7</button></td>
@@ -46,8 +47,8 @@
 </div>
 <script>
 'use strict';
-let calculator = new calcApp(document.getElementById('calculatorContainer'));
-
+// initialization
+let calcApp = new CalcApp(document.getElementById('calculatorContainer'));
 </script>
 </body>
 </html>
