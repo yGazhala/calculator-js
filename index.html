@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" href="./calcStyle.css">
+    <script src="http://cdn.polyfill.io/v1/polyfill.js?features=es6"></script>
+    <script src="./calcApp.js"></script>
+    <title>calculatorApp</title>
+</head>
+<body>
+<div id="calculatorContainer">
+    <input type="text" class="calculator__screen">
+    <table>
+        <tr>
+            <td><button data-key="_performClean">C</button></td>
+            <td><button data-key="_performBackspace">&#8592</button></td>
+            <td><button data-key="_performUndo">&#171</button></td>
+            <td><button data-key="_performRedo">&#187</button></td>
+        </tr>
+        <tr>
+            <td><button data-character="7">7</button></td>
+            <td><button data-character="8">8</button></td>
+            <td><button data-character="9">9</button></td>
+            <td><button data-operator="div">&divide</button></td>
+        </tr>
+        <tr>
+            <td><button data-character="4">4</button></td>
+            <td><button data-character="5">5</button></td>
+            <td><button data-character="6">6</button></td>
+            <td><button data-operator="mul">&times</button></td>
+        </tr>
+        <tr>
+            <td><button data-character="1">1</button></td>
+            <td><button data-character="2">2</button></td>
+            <td><button data-character="3">3</button></td>
+            <td><button data-operator="sub">&#8722</button></td>
+        </tr>
+        <tr>
+            <td><button data-character="0">0</button></td>
+            <td><button data-key="_inputDot">.</button></td>
+            <td><button data-key="_performMinusPlus">&plusmn</button></td>
+            <td><button data-operator="add">+</button></td>
+        </tr>
+    </table>
+    <button data-key="_performEqually">=</button>
+</div>
+<script>
+'use strict';
+// initialization
+let calcApp = new CalcApp(document.getElementById('calculatorContainer'));
+</script>
+</body>
+</html>
