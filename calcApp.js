@@ -31,7 +31,7 @@ class CalculatorUI {
 
             this._calcContainer.addEventListener('mousedown', () => this._processMouseEvent(event));
 
-        // for desktop
+            // for desktop
         } else {
             this._screen.focus(); // default
             this._calcContainer.addEventListener('click', () => this._processMouseEvent(event));
@@ -112,8 +112,8 @@ class CalculatorUI {
     _inputDot() {
         // if dot has inputted after equally command - update screen.value
         if (this._equallyInputted === true) {
-                this._screen.value = '0.';
-                this._inputUpdated = true;
+            this._screen.value = '0.';
+            this._inputUpdated = true;
         }
 
         // if the screen.value has no dot - add it
@@ -188,7 +188,7 @@ class CalculatorUI {
             this._equallyInputted = true;
             this._setDefaultFlags();
 
-        // if equally inputted at next time - repeat last command inputted
+            // if equally inputted at next time - repeat last command inputted
         } else {
             if (this._firstOperandInputted === false) {
                 this._screen.value = this._calculator.repeatLastCommand();
