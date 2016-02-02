@@ -75,6 +75,11 @@ q:before, q:after {
     outline: none; /* remove  border highlight */
 }
 
+/* remove 'x' symbol in IE10+ */
+.calculator__screen::-ms-clear {
+    display: none;
+}
+
 #calculatorContainer button {
     cursor: pointer;
 }
@@ -94,3 +99,4 @@ q:before, q:after {
     padding: 0.5em;
     font-size: 1.5em;
 }
+
