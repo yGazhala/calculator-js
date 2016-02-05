@@ -8,10 +8,10 @@ import ArithmeticUnit from './arithmeticUnit.js';
 import ControlUnit from './controlUnit.js';
 
 // concrete command classes
-import Add from './add.js';
-import Sub from './sub.js';
-import Mul from './mul.js';
-import Div from './div.js';
+import Add from './commands/add.js';
+import Sub from './commands/sub.js';
+import Mul from './commands/mul.js';
+import Div from './commands/div.js';
 
 
 export default class Calculator {

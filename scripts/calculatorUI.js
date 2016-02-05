@@ -36,17 +36,15 @@ export default class CalculatorUI {
         if (char) {
             this._inputChar(char);
 
-            return;
-        }
+        } else {
+            if (operator) {
+                this._performOperator(operator);
 
-        if (operator) {
-            this._performOperator(operator);
-
-            return;
-        }
-
-        if (key) {
-            this[key]();
+            } else {
+                if (key) {
+                    this[key]();
+                }
+            }
         }
     }
 
@@ -109,7 +107,7 @@ export default class CalculatorUI {
     _performBackspace() {
         this._screen.value = this._screen.value.slice(0, -1);
 
-        if (this._screen.value === '') {
+        if (!this._screen.value) {
             this._screen.value = 0;
             this._inputUpdated = false;
         }
@@ -171,6 +169,8 @@ export default class CalculatorUI {
             this._firstOperandInputted = true;
             this._currentOperator = operator;
             this._inputUpdated = false;
+
+            return;
         }
 
         // Catching next operand.
@@ -180,6 +180,8 @@ export default class CalculatorUI {
             this._screen.value = this._calculator[this._currentOperator](parseFloat(this._screen.value));
             this._currentOperator = operator;
             this._inputUpdated = false;
+
+            return;
         }
 
         // change current operator
@@ -242,6 +244,7 @@ export default class CalculatorUI {
 
         if (event.which != 0 && event.charCode != 0) { // other browsers
             if (event.which < 32) {
+
                 return null; // special symbol
             }
 

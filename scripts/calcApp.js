@@ -1,7 +1,7 @@
 'use strict';
 // This class includes all application.
 
-import Calculator from './calculator.js';
+import Calculator from './realization/calculator.js';
 import CalculatorUI from './calculatorUI.js';
 
 export default class CalcApp {
