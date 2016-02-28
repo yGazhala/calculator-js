@@ -23,19 +23,3 @@ module.exports = {
         }]
     }
 };
-
-/*
- loaders: [{
- test: /\.jsx?$/,
- exclude: /node_modules/,
- loader: 'babel', // 'babel-loader' is also a legal name to reference
- query: {
- presets: ['es2015']
- }
- }]
-*/
-
-/*loaders: [{
- test: /\.jsx?$/,
- loader: 'babel?optional=runtime'
- }]*/

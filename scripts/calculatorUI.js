@@ -17,7 +17,7 @@ export default class CalculatorUI {
         // add event handlers for mobile devices
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 
-            this._calcContainer.addEventListener('mousedown', this._processMouseEvent.bind(this));
+            this._calcContainer.addEventListener('touchstart', this._processMouseEvent.bind(this));
 
             // for desktop
         } else {
