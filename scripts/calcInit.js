@@ -3,4 +3,4 @@
 
 import CalcApp from './calcApp.js';
 
-export var calcApp = new CalcApp(document.getElementById('calculatorContainer'));
+export let calcApp = new CalcApp(document.getElementById('calculatorContainer'));
