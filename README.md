@@ -1,6 +1,6 @@
 ## calculator-js
 
-This is a browser calculator with basic arithmetic operations. It is developed in native JavaScript without using the `eval()` method. The application was designed by using the Command pattern. As a result, it is not difficult to develop this basic version by adding new features.
+This is a browser calculator with basic arithmetic operations. It is developed with native JavaScript without using the `eval()` method. The application was designed by using the Command pattern. As a result, it is not difficult to develop this basic version by adding new features.
 
 [Demo: http://ygazhala.github.io/calculator-js](http://ygazhala.github.io/calculator-js)
 
