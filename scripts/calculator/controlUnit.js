@@ -1,18 +1,18 @@
 'use strict';
-// Invoker.
-// Object of this class keeps history of objects of commands, and calls execute method on them.
-// In addition it describes undo and redo methods.
+// The Control unit (the invoker).
+// An object of this class keeps history of objects of commands, and calls the execute method on them.
+// In addition this class describes UNDO and REDO methods.
 
 export default class ControlUnit {
     constructor() {
         this._commands = [];
-        this._current = 0; // index of command which is going to be executed
+        this._current = 0; // an index of the command which is going to be executed
     }
 
     executeCommand(command) {
-        // In case we are going to add new command after we have used undo/redo method,
-        // it is necessary to check if we are not currently pointing at the middle of array.
-        // If we are - cut the rest of array so the new adding command will be in the proper order.
+        // In case, we are going to add a new command after we have used undo/redo method,
+        // it is necessary to check if we are not currently pointing at the middle of the array.
+        // If we are - cut the rest of the array, so the new adding command will be in the proper order.
         if (this._current <= this._commands.length -1) {
             this._commands.splice(this._current);
         }
@@ -22,6 +22,7 @@ export default class ControlUnit {
     }
 
     undo(levels) {
+        // the levels - is a number of steps, that we are going to make backward
         for (let i = 0; i < levels; i++) {
             if (this._current > 0) {
                 this._commands[--this._current].unExecute();

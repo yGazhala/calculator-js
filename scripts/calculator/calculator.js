@@ -1,17 +1,17 @@
 'use strict';
-// This class describes interface of realization.
-// It receives queries from object of CalculatorUI class,
-// creates object of Concrete Command class and sets receiver fot it.
+// This class includes all objects of realization and provides the calculator API.
+// It receives queries from the object of CalculatorUI class,
+// creates objects of concrete command classes and sets the receiver (the arithmetic unit) for them.
 
 
 import ArithmeticUnit from './arithmeticUnit.js';
 import ControlUnit from './controlUnit.js';
 
 // concrete command classes
-import Add from './commands/add.js';
-import Sub from './commands/sub.js';
-import Mul from './commands/mul.js';
-import Div from './commands/div.js';
+import Add from './add.js';
+import Sub from './sub.js';
+import Mul from './mul.js';
+import Div from './div.js';
 
 
 export default class Calculator {

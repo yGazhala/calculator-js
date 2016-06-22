@@ -1,9 +1,8 @@
 'use strict';
 
-// Receiver.
-// Object of this class performs computing operations.
-// Any class may receive the result of these operations.
-// In our case, the result reads object of Calculator class.
+// The Arithmetic unit (the receiver).
+// An object of this class performs computing operations.
+// The result of these operations is read by an object of 'calculator.js' class.
 
 export default class ArithmeticUnit {
     constructor() {

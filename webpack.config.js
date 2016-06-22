@@ -2,11 +2,11 @@
 
 module.exports = {
 
-    entry: './scripts/calcInit.js',
+    entry: './scripts/calcApp.js',
 
     output: {
             path: './',
-            filename: 'compiledCalc.js',
+            filename: 'bundle.js',
             library: 'calcApp'
         },
 
@@ -16,7 +16,7 @@ module.exports = {
         loaders: [{
             test: /\.jsx?$/,
             exclude: /node_modules/,
-            loader: 'babel', // 'babel-loader' is also a legal name to reference
+            loader: 'babel',
             query: {
                 presets: ['es2015']
             }

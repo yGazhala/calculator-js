@@ -1,15 +1,18 @@
 'use strict';
-// This class includes all application.
 
-import Calculator from './realization/calculator.js';
-import CalculatorUI from './calculatorUI.js';
+import Calculator from './calculator/calculator.js';
+import CalculatorUI from './calculatorUI/calculatorUI.js';
 
-export default class CalcApp {
+// This class includes the entire application
+class CalcApp {
     constructor(htmlContainer) {
-        // This object contains interface methods of realization
+        // This object provides the calculator API
         this.calculator = new Calculator();
 
-        // User interface
+        // This object provides the user's interface
         this.calculatorUI = new CalculatorUI(this.calculator, htmlContainer);
     }
 }
+
+// Add the application to the page
+export let calcApp = new CalcApp(document.getElementById('calculatorContainer'));

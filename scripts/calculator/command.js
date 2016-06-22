@@ -1,6 +1,6 @@
 'use strict';
-// Abstract class Command provides an interface to perform the operation.
-// Concrete Command classes inherit from it.
+// The abstract class Command provides an interface to perform the operation.
+// Concrete command classes inherit from it.
 
 export default class Command {
     execute() {
